@@ -2,15 +2,35 @@ import { Component } from "react";
 
 class Todo extends Component {
     render() {
-        const {todo} = this.props;
-        const {id, content, status} = todo;
+        const {todos} = this.props;
 
         return (
-            <div>
-                <span>{id}</span>
-                <span>{content}</span>
-                <input type="checkBox" checked={status}></input>
-            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Content</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        todos.map((todo, index) => {
+                            const {id, content, status} = todo;
+                    
+                            return (
+                                <tr key={index}>
+                                    <td>{id}</td>
+                                    <td>{content}</td>
+                                    <td>
+                                        <input type="checkBox" checked={status}></input>
+                                    </td>
+                                </tr>
+                            );
+                        })
+                    }
+                </tbody>
+            </table>
         )
     }
 }

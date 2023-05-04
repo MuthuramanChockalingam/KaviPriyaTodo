@@ -2,7 +2,7 @@ import './App.css';
 import Todo from './components/Todo';
 
 function App() {
-  const todos = [
+  const data = [
     {
       id: 1,
       content: "Create a react project.",
@@ -27,8 +27,8 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Welcome to Todo App!</h1>
-      <Todo todos={todos}/>
+      <h1>Welcome to Todo App!!!!!</h1>
+      <Todo data={data}/>
     </div>
   );
 }

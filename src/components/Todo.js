@@ -1,9 +1,16 @@
 import { Component } from "react";
+import { todoManager } from "../services/todoManager";
 
 class Todo extends Component {
-    render() {
-        const {todos} = this.props;
+    constructor(props) {
+        super(props);
+        const {data} = props;
+        this.state = {todos: data}; 
+    }
 
+    render() {
+        const {todos} = this.state;
+        const {updateTodoStatus} = todoManager;
         return (
             <table>
                 <thead>
@@ -23,7 +30,7 @@ class Todo extends Component {
                                     <td>{id}</td>
                                     <td>{content}</td>
                                     <td>
-                                        <input type="checkBox" checked={status}></input>
+                                        <input type="checkBox" onChange={() => this.setState(updateTodoStatus(this.state, id))} checked={status}></input>
                                     </td>
                                 </tr>
                             );

@@ -16,12 +16,18 @@ class Todo extends Component {
 
     render() {
         const {todos} = this.state;
-        const {updateTodoStatus} = todoManager;
+        const {updateTodoStatus, addTodo} = todoManager;
         console.log(this.state);
         return (
             <div>
                 <span>
                     <TodoInput input={this.state.input} handler={this.update}/>
+                </span>
+                <span>
+                    <button onClick={() => {
+                        const addedTodos = addTodo(this.state);
+                        this.setState({todos: addedTodos, input: ''});
+                    }}>Add</button>
                 </span>
                 <table>
                     <thead>

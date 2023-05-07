@@ -17,4 +17,10 @@ export const todoManager = {
 
         return (addedTodos)
     },
+    removeTodo: (state, id) => {
+        const {todos} = state;
+        const filteredTodos = todos.filter((todo) => todo.id!==id);
+
+        return (filteredTodos);
+    }
 };

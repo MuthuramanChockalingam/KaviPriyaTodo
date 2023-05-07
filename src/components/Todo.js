@@ -1,5 +1,7 @@
 import { Component } from "react";
 import { todoManager } from "../services/todoManager";
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 import TodoInput from "./TodoInput";
 
 class Todo extends Component {
@@ -16,7 +18,7 @@ class Todo extends Component {
 
     render() {
         const {todos} = this.state;
-        const {updateTodoStatus, addTodo} = todoManager;
+        const {updateTodoStatus, addTodo, removeTodo} = todoManager;
         console.log(this.state);
         return (
             <div>
@@ -52,6 +54,15 @@ class Todo extends Component {
                                                 return this.setState(updatedTodo);
                                             }} checked={status}>
                                             </input>
+                                        </td>
+                                        <td>
+                                            <IconButton aria-label="delete" color="primary"
+                                                onClick={() => {
+                                                    const filteredTodos = removeTodo(this.state, id);
+                                                    return this.setState({...this.state, todos: filteredTodos})
+                                                }}>
+                                                <DeleteIcon />
+                                            </IconButton>
                                         </td>
                                     </tr>
                                 );

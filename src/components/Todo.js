@@ -2,13 +2,14 @@ import { Component } from "react";
 import { todoManager } from "../services/todoManager";
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 import TodoInput from "./TodoInput";
 
 class Todo extends Component {
     constructor(props) {
         super(props);
         const {data} = props;
-        this.state = {todos: data, input: ''};
+        this.state = {todos: data, input: '', isEdited: false, editedId: ''};
         this.update=this.update.bind(this);
     }
 
@@ -18,8 +19,7 @@ class Todo extends Component {
 
     render() {
         const {todos} = this.state;
-        const {updateTodoStatus, addTodo, removeTodo} = todoManager;
-        console.log(this.state);
+        const {updateTodoStatus, addTodo, removeTodo, editTodo, updateTodo} = todoManager;
         return (
             <div>
                 <span>
@@ -27,9 +27,15 @@ class Todo extends Component {
                 </span>
                 <span>
                     <button onClick={() => {
-                        const addedTodos = addTodo(this.state);
-                        this.setState({todos: addedTodos, input: ''});
-                    }}>Add</button>
+                        if(this.state.isEdited===true){
+                            const updatedTodo = updateTodo(this.state);
+                            this.setState({todos: updatedTodo, input: '', isEdited: false, editedId: ''});
+                        }
+                        else{
+                            const addedTodos =  addTodo(this.state);
+                            this.setState({todos: addedTodos, input: ''});
+                        }
+                    }}>{this.state.isEdited ? 'Update' : 'Add'}</button>
                 </span>
                 <table>
                     <thead>
@@ -62,6 +68,15 @@ class Todo extends Component {
                                                     return this.setState({...this.state, todos: filteredTodos})
                                                 }}>
                                                 <DeleteIcon />
+                                            </IconButton>
+                                        </td>
+                                        <td>
+                                            <IconButton aria-label="edit" color="primary"
+                                                onClick={() => {
+                                                    const toBeEdited = editTodo(this.state, id);
+                                                    return this.setState({...this.state, input: toBeEdited.content, isEdited: true, editedId: id})
+                                                }}>
+                                                <EditIcon/>
                                             </IconButton>
                                         </td>
                                     </tr>

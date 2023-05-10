@@ -21,7 +21,7 @@ class Todo extends Component {
         const {todos} = this.state;
         const {updateTodoStatus, addTodo, removeTodo, editTodo, updateTodo} = todoManager;
         return (
-            <div>
+            <div data-testid="Todo-component">
                 <span>
                     <TodoInput input={this.state.input} handler={this.update}/>
                 </span>
